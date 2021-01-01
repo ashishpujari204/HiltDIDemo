@@ -1,11 +1,14 @@
-package com.ashish.hiltdemoapp.ui
+package com.ashish.hiltdemoapp.ui.mainactivity
 
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.observe
 import com.ashish.hiltdemoapp.databinding.ActivityMainBinding
+import com.ashish.hiltdemoapp.ui.BaseActivity
+import com.ashish.hiltdemoapp.ui.mainactivity.PostState.Error
+import com.ashish.hiltdemoapp.ui.mainactivity.PostState.Loading
+import com.ashish.hiltdemoapp.ui.mainactivity.PostState.Success
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,15 +25,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
 
     private fun showPost(postState: PostState) {
         when (postState) {
-            is PostState.Loading -> {
+            is Loading -> {
                 binding.progressBar.isVisible = true
             }
-            is PostState.Success -> {
+            is Success -> {
                 binding.progressBar.isVisible = false
-                Log.e("app", "Post data is-- ${postState.entries.first()}")
                 binding.postText.text = postState.entries.first().toString()
             }
-            is PostState.Error -> {
+            is Error -> {
                 binding.progressBar.isVisible = false
                 Toast.makeText(this@MainActivity, postState.message, Toast.LENGTH_LONG).show()
             }

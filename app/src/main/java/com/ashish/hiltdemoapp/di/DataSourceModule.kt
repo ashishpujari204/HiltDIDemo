@@ -44,9 +44,8 @@ class DataSourceModule {
 
     @Provides
     @Singleton
-    fun provideDataSource(postService: PostService): DataSource = PostDataSource(
-            postService
-    )
+    fun provideDataSource(postService: PostService):
+            DataSource = PostDataSource(postService)
 
     private val interceptor: Interceptor
         get() = HttpLoggingInterceptor().apply {

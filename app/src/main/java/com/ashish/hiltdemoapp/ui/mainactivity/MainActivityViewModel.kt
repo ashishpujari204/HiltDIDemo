@@ -1,28 +1,24 @@
-package com.ashish.hiltdemoapp.ui
+package com.ashish.hiltdemoapp.ui.mainactivity
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
-import com.ashish.hiltdemoapp.model.Posts
 import com.ashish.hiltdemoapp.repository.PostsRepository
+import com.ashish.hiltdemoapp.ui.mainactivity.PostState.Error
+import com.ashish.hiltdemoapp.ui.mainactivity.PostState.Loading
+import com.ashish.hiltdemoapp.ui.mainactivity.PostState.Success
 import com.ashish.hiltdemoapp.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
 class MainActivityViewModel @ViewModelInject constructor(private val postsRepository: PostsRepository) :
-    BaseViewModel<PostState>() {
+        BaseViewModel<PostState>() {
     fun getPosts() {
-        uiState.value = PostState.Loading
+        uiState.value = Loading
         viewModelScope.launch {
             try {
-                uiState.value = PostState.Success(postsRepository.getPosts())
+                uiState.value = Success(postsRepository.getPosts())
             } catch (exception: Exception) {
-                uiState.value = PostState.Error("Error retrieving post")
+                uiState.value = Error("Error retrieving post")
             }
         }
     }
-}
-
-sealed class PostState {
-    object Loading : PostState()
-    data class Success(val entries: List<Posts>) : PostState()
-    data class Error(val message: String) : PostState()
 }
