@@ -1,11 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext.versions = [
-            'kotlin'                : '1.4.20',
+            'kotlin'                : '1.4.21',
             'retrofit'              : '2.9.0',
             'daggerHiltAndroid'     : '2.28-alpha',
-            'daggerHilt'            : '1.0.0-alpha01',
-            'okhttp'                : '4.4.0',
+            'daggerHilt'            : '1.0.0-alpha02',
+            'okhttp'                : '4.9.0',
     ]
     repositories {
         google()

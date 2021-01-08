@@ -1,20 +1,19 @@
 package com.ashish.hiltdemoapp.ui.mainactivity
 
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.observe
 import com.ashish.hiltdemoapp.databinding.ActivityMainBinding
+import com.ashish.hiltdemoapp.model.Posts
 import com.ashish.hiltdemoapp.ui.BaseActivity
-import com.ashish.hiltdemoapp.ui.mainactivity.PostState.Error
-import com.ashish.hiltdemoapp.ui.mainactivity.PostState.Loading
-import com.ashish.hiltdemoapp.ui.mainactivity.PostState.Success
+import com.ashish.hiltdemoapp.ui.mainactivity.PostState.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() {
+class PostListActivity : BaseActivity<ActivityMainBinding, PostActivityViewModel>() {
 
-    override val viewModel: MainActivityViewModel by viewModels()
+    override val viewModel: PostActivityViewModel by viewModels()
+    private lateinit var postAdapter: PostAdapter
 
     override fun onObserve() {
         viewModel.uiState().observe(this) {
@@ -30,13 +29,20 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
             }
             is Success -> {
                 binding.progressBar.isVisible = false
-                binding.postText.text = postState.entries.first().toString()
+                postAdapter = PostAdapter(
+                    postState.entries as ArrayList<Posts>
+                ) { postItem: Posts -> onItemClickEvent(postItem) }
+                binding.postList.adapter = postAdapter
             }
             is Error -> {
                 binding.progressBar.isVisible = false
-                Toast.makeText(this@MainActivity, postState.message, Toast.LENGTH_LONG).show()
+                showErrorDialog(postState.message)
             }
         }
+    }
+
+    private fun onItemClickEvent(postData: Posts) {
+        showToast(postData.title)
     }
 
     override fun getViewBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)

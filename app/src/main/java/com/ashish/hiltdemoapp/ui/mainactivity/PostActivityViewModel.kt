@@ -9,8 +9,9 @@ import com.ashish.hiltdemoapp.ui.mainactivity.PostState.Success
 import com.ashish.hiltdemoapp.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
-class MainActivityViewModel @ViewModelInject constructor(private val postsRepository: PostsRepository) :
-        BaseViewModel<PostState>() {
+class PostActivityViewModel @ViewModelInject constructor(
+    private val postsRepository: PostsRepository
+) : BaseViewModel<PostState>() {
     fun getPosts() {
         uiState.value = Loading
         viewModelScope.launch {

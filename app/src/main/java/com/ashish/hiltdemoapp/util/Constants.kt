@@ -11,7 +11,7 @@ class Constants {
     companion object {
         const val BASE_URL = "https://jsonplaceholder.typicode.com/"
         const val PREFERENCE_NAME = "HiltDemo"
-        const val TYPE = "type"
+        private const val TYPE = "type"
 
         fun getType(activity: Activity): String {
             return SharedPreferencesStorage(activity).getString(TYPE)
