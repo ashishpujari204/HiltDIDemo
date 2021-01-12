@@ -3,10 +3,12 @@ package com.ashish.hiltdemoapp.ui.mainactivity
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.observe
+import com.ashish.hiltdemoapp.R
 import com.ashish.hiltdemoapp.databinding.ActivityMainBinding
 import com.ashish.hiltdemoapp.model.Posts
 import com.ashish.hiltdemoapp.ui.BaseActivity
 import com.ashish.hiltdemoapp.ui.mainactivity.PostState.*
+import com.ashish.hiltdemoapp.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +21,11 @@ class PostListActivity : BaseActivity<ActivityMainBinding, PostActivityViewModel
         viewModel.uiState().observe(this) {
             showPost(it)
         }
-        viewModel.getPosts()
+        if (Constants.isInternetAvailable(this)) {
+            viewModel.getPosts()
+        } else {
+            showErrorDialog(getString(R.string.internet_error))
+        }
     }
 
     private fun showPost(postState: PostState) {
