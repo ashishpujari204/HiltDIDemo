@@ -28,7 +28,7 @@
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Pune" />
+            tools:text="@string/city_name" />
 
         <TextView
             android:id="@+id/bodyText"

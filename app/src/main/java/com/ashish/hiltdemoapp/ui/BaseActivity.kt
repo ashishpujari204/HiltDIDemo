@@ -18,6 +18,10 @@ abstract class BaseActivity<B : ViewBinding, VM : ViewModel> : AppCompatActivity
         binding = getViewBinding()
         setContentView(binding.root)
         onObserve()
+        /**
+         * To Prevent from tap jacking
+         */
+        binding.root.filterTouchesWhenObscured = true
     }
 
     abstract fun onObserve()
@@ -49,7 +53,7 @@ abstract class BaseActivity<B : ViewBinding, VM : ViewModel> : AppCompatActivity
         this.setPositiveButton(text) { _, which -> handleClick(which) }
     }
 
-    fun AlertDialog.Builder.negativeButton(
+    private fun AlertDialog.Builder.negativeButton(
         text: String = getString(R.string.cancel_text),
         handleClick: (which: Int) -> Unit = {}
     ) {
