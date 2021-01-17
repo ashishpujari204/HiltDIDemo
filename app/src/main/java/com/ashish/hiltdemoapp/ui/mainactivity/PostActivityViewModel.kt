@@ -12,13 +12,14 @@ import kotlinx.coroutines.launch
 class PostActivityViewModel @ViewModelInject constructor(
     private val postsRepository: PostsRepository
 ) : BaseViewModel<PostState>() {
+
     fun getPosts() {
         uiState.value = Loading
         viewModelScope.launch {
             try {
                 uiState.value = Success(postsRepository.getPosts())
             } catch (exception: Exception) {
-                uiState.value = Error("Error retrieving post")
+                uiState.value = Error("Error retrieving data")
             }
         }
     }
