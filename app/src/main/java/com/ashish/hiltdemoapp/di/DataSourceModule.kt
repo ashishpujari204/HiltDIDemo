@@ -5,6 +5,7 @@ import com.ashish.hiltdemoapp.datasource.DataSource
 import com.ashish.hiltdemoapp.datasource.PostDataSource
 import com.ashish.hiltdemoapp.service.PostService
 import com.ashish.hiltdemoapp.util.Constants.Companion.BASE_URL
+import com.ashish.hiltdemoapp.util.Language
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,16 +31,16 @@ class DataSourceModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            .client(okHttpClient)
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
 
     @Provides
     @Singleton
     fun providePostService(retrofit: Retrofit): PostService = retrofit.create(
-            PostService::class.java
+        PostService::class.java
     )
 
     @Provides

@@ -78,4 +78,7 @@ dependencies {
 
     //secure crypto
     implementation 'androidx.security:security-crypto:1.1.0-alpha03'
+
+    //phone number formatter
+    implementation 'io.michaelrocks:libphonenumber-android:8.12.18'
 }

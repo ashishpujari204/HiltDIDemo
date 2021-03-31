@@ -31,6 +31,6 @@ class SharedPreferencesStorage @Inject constructor(@ApplicationContext context: 
     }
 
     override fun getString(key: String): String {
-        TODO()
+        return sharedPreferences.getString(key, null)!!
     }
 }

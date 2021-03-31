@@ -5,4 +5,8 @@
     <string name="cancel_text">Cancel</string>
     <string name="internet_error">Please check internet connection</string>
     <string name="city_name">Pune</string>
+    <string name="okayLabel">okay</string>
+    <string name="mobileNumberHint">Mobile number</string>
+    <string name="passwordHint">Password</string>
+    <string name="loginBtn">Sign In</string>
 </resources>
